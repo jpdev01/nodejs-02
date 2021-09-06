@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "startDev": "ts-node-dev --inspect --ignore-watch node_modules1 src/server.ts",
-    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
+    "knex:seeds": "knex --knexfile knexfile.ts seed:run"
   },
   "author": "",
   "license": "ISC",
