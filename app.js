@@ -31,10 +31,16 @@ function logRoutes(request, response, next){
     return next(); // passe para o proximo middleware ou req final
 }
 
+function getAllProjectsMiddleWare(request, response, next){
+    console.log("pegando todos os projetos!");
+    next();
+}
+
 app.use(logRoutes);
 
 const projects = [];
-app.get('/projects', (request, response) => {
+app.get('/projects', getAllProjectsMiddleWare, (request, response) => {
+    //chama o getAllProjectsMiddleWare antes da req.
     const { title } = request.query;
 
     if(title) {
