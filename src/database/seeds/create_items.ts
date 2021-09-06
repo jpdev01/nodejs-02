@@ -3,12 +3,12 @@ import { Knex } from "knex";
 export async function seed(knex: Knex){
     await knex('items').insert([
         {
-            title: "Papéis e Papelão",
-            image: "papel.png"
+            name: "BMW x6",
+            image: "bmwx6.jpg"
         },
         {
-            title: "Vidros e Lâmpadas",
-            image: "vidro.png"
+            name: "Chevrolet Camaro",
+            image: "camaro.png"
         }
     ]);
 }
