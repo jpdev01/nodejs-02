@@ -22,6 +22,16 @@ app.get('/params/:name/:color', (req, res) => {
     res.send('<h1>Olá, ' + req.params.name + ', sua cor favorita é ' + req.params.color + '</h1>');
 });
 
+function logRoutes(request, response, next){
+    const { method, url } = request;
+
+    const route = `[${method.toUpperCase()}] ${url}`;
+    console.log(route);
+
+    return next(); // passe para o proximo middleware ou req final
+}
+
+app.use(logRoutes);
 
 const projects = [];
 app.get('/projects', (request, response) => {
