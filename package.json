@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "startDev": "ts-node-dev --inspect --ignore-watch node_modules1 src/server.ts"
+    "startDev": "ts-node-dev --inspect --ignore-watch node_modules1 src/server.ts",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
   },
   "author": "",
   "license": "ISC",
