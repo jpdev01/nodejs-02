@@ -35,13 +35,13 @@ locationsRouter.post('/', async (request, response) => {
     const transaction = await knex.transaction();
     const newIds = await transaction('locations').insert(location);
 
-    const locationId = newIds[0];
+    const location_id = newIds[0];
 
     // as tabelas dependentes
     const locationItems = items.map((item_id: number) => {
         return {
             item_id,
-            location_id: locationId
+            location_id
         }
     });
     await transaction('location_items').insert(locationItems);
