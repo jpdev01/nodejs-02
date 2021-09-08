@@ -22,11 +22,13 @@ iniciar config typescript:
  npm install ts-node-dev -D
  
 configurar no package.json: ts-node-dev --inspect --ignore-watch node_modules
-##npm run startDev
+##npm run start:watch
 
 migration:
 npm install knex
 npm install mysql
 
-
-npx knex --knexfile knexfile.ts migrate:latest
+----- CONSTRUIR O BANCO -----
+foi transformado esse comando em 'npm run knex:migrate'
+npx knex --knexfile knexfile.ts migrate:latest 
+-----
