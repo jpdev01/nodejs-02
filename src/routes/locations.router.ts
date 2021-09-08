@@ -79,7 +79,7 @@ locationsRouter.get('/:id', async (request, response) => {
     // quais campos quero selecionar?
     .select('title');
 
-    return response.json(location);
+    return response.json({location, items});
 });
 
 export default locationsRouter;
