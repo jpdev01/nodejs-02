@@ -26,7 +26,14 @@ locationsRouter.post('/', async (request, response) => {
         uf,
         items
     }
-    const newIds = await knex('locations').insert(location);
+
+
+    /*
+    * ABRE TRANSAÇÃO
+    * tudo abaixo estará na mesma transação. se der erro em um, fará rollback em tudo.
+    */
+    const transaction = await knex.transaction();
+    const newIds = await transaction('locations').insert(location);
 
     const locationId = newIds[0];
 
@@ -37,7 +44,12 @@ locationsRouter.post('/', async (request, response) => {
             location_id: locationId
         }
     });
-    await knex('location_items').insert(locationItems);
+    await transaction('location_items').insert(locationItems);
+
+    /*
+    * Persiste no banco.
+    */
+    await transaction.commit();
 
     return response.json({
         id: locationId,
