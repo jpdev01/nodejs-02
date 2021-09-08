@@ -52,7 +52,7 @@ locationsRouter.post('/', async (request, response) => {
     await transaction.commit();
 
     return response.json({
-        id: locationId,
+        id: location_id,
         // esses tres pontos fazem trazer todos os atributos de location. spred iterator
         ...location
     })
