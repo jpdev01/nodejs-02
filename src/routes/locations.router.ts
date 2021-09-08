@@ -72,6 +72,13 @@ locationsRouter.get('/:id', async (request, response) => {
         return response.status(400).json("location " + id + " not found.");
     }
 
+    const items = await knex('items')
+    // relaciona o campo id da tabela items ao location_items
+    .join('location_items', 'items.id', '=', 'location_items.item_id')
+    .where('location_items.location_id', id)
+    // quais campos quero selecionar?
+    .select('title');
+
     return response.json(location);
 });
 
