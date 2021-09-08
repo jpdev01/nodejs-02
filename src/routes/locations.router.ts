@@ -41,7 +41,7 @@ locationsRouter.post('/', async (request, response) => {
 
     return response.json({
         id: locationId,
-        // esses tres pontos fazem trazer todos os atributos de location.
+        // esses tres pontos fazem trazer todos os atributos de location. spred iterator
         ...location
     })
 
