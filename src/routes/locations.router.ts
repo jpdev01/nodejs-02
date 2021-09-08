@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { response, Router } from 'express';
 import knex from '../database/connection';
 
 const locationsRouter = Router();
@@ -38,7 +38,11 @@ locationsRouter.post('/', async (request, response) => {
     const location_id = newIds[0];
 
     // as tabelas dependentes
-    const locationItems = items.map((item_id: number) => {
+    const locationItems = items.map(async (item_id: number) => {
+        const selectedItem = await transaction('items').where('id', item_id).first();
+        if(!selectedItem) {
+            return response.status(400).json("Item" + item_id + " not found");
+        }
         return {
             item_id,
             location_id
@@ -57,6 +61,18 @@ locationsRouter.post('/', async (request, response) => {
         ...location
     })
 
+});
+
+locationsRouter.get('/:id', async (request, response) => {
+    const { id } = request.params;
+
+    const location = await knex('locations').where('id', id).first();
+
+    if(!location){
+        return response.status(400).json("location " + id + " not found.");
+    }
+
+    return response.json(location);
 });
 
 export default locationsRouter;
