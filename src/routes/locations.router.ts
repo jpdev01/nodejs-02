@@ -9,11 +9,11 @@ locationsRouter.get('/', async (request, response) => {
     /* 
     * O usuario vai informar os items por uma string com virugula, separará os items
     */
-    const parsedItems = <any> String(items).split(',').map(item => {
-        Number(item.trim());
-    });
+    const parsedItems = <any>String(items).split(',').map(item =>
+        Number(item.trim())
+    );
 
-    const locations = knex('locations')
+    const locations = await knex('locations')
     /* 
     * 1- em que tabela?
     * 2- qual coluna da tabela princiapl?
