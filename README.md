@@ -42,3 +42,10 @@ adicionar tipagem (@types)
 ---Upload de Imagem (Multer)---
 npm install multer
 ---
+
+
+--LIB CELEBRATE---
+usa o JOI - validação de atributo para cada coluna da tabela (username, password)
+é um middleware
+npm i celebrate (add tipagem)
+---

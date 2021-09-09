@@ -2,6 +2,7 @@ import { response, Router } from 'express';
 import knex from '../database/connection';
 import multer from 'multer';
 import multerConfig from '../config/multer';
+import { celebrate, Joi } from 'celebrate';
 
 const locationsRouter = Router();
 const upload = multer(multerConfig);
@@ -13,7 +14,7 @@ locationsRouter.get('/', async (request, response) => {
     if (city && uf && items) {
         /* 
             * O usuario vai informar os items por uma string com virugula, separará os items
-            */
+            */ 
         const parsedItems: Number[] = String(items).split(',').map(item =>
             Number(item.trim())
         );
@@ -44,7 +45,22 @@ locationsRouter.get('/', async (request, response) => {
 
 });
 
-locationsRouter.post('/', async (request, response) => {
+locationsRouter.post('/', celebrate({
+    // insere aqui nossas regras
+    // tratar o body da requisicao
+    body: {
+        Joi.object().keys({
+            name: Joi.string().required(),
+            email: Joi.string().required().email(),
+            whatsapp: Joi.string().required(),
+            latitude: Joi.number().required(),
+            longitude: Joi.number().required(),
+            city: Joi.number().required(),
+            uf: Joi.number().required().max(2),
+            items: Joi.string().required()
+        })
+    }
+}), async (request, response) => {
     const {
         name,
         email,
