@@ -12,7 +12,7 @@ locationsRouter.get('/', async (request, response) => {
     /* 
     * O usuario vai informar os items por uma string com virugula, separará os items
     */
-    const parsedItems = <any>String(items).split(',').map(item =>
+    const parsedItems: Number[] = String(items).split(',').map(item =>
         Number(item.trim())
     );
 
