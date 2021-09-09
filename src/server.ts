@@ -2,10 +2,27 @@ import express from 'express';
 // chamar o diretorio ja vai para o index.
 import routes from './routes';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
-app.use(express.json());
 
+/* 
+* qualquer dominio pode acessar nosso dominio
+app.use(cors());
+outros ex:
+app.use(cors(
+    {
+        origin: ['exemplo.com.br', '[...]', '[...]']
+    }
+));
+*/
+app.use(cors(
+    {
+        origin: ['exemplo.com.br', 'http://localhost:4200/backend']
+    }
+));
+
+app.use(express.json());
 app.use(routes);
 
 app.use('/uploads', 

@@ -32,3 +32,7 @@ npm install mysql
 foi transformado esse comando em 'npm run knex:migrate'
 npx knex --knexfile knexfile.ts migrate:latest 
 -----
+
+
+--CONFIGURANDO O CORS ---
+npm i cors
