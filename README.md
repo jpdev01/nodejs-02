@@ -36,3 +36,9 @@ npx knex --knexfile knexfile.ts migrate:latest
 
 --CONFIGURANDO O CORS ---
 npm i cors
+adicionar tipagem (@types)
+---
+
+---Upload de Imagem (Multer)---
+npm install multer
+---

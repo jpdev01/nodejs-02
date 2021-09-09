@@ -1,7 +1,10 @@
 import { response, Router } from 'express';
 import knex from '../database/connection';
+import multer from 'multer';
+import multerConfig from '../config/multer';
 
 const locationsRouter = Router();
+const upload = multer(multerConfig);
 
 locationsRouter.get('/', async (request, response) => {
     const { city, uf, items} = request.query;
@@ -109,6 +112,34 @@ locationsRouter.get('/:id', async (request, response) => {
     .select('title');
 
     return response.json({location, items});
+});
+
+/* 
+* upload.single pq é só um arquivo por vez
+*/
+locationsRouter.put('/:id', upload.single, async (request, response) => {
+    const { id } = request.params;
+
+    const file = request.file?.filename;
+
+    if(!file)
+    {
+        return response.status(400).json("file not found");
+    }
+
+    const location = await knex('locations').where('id', id).first();
+
+    if(!location){
+        return response.status(400).json("location not found");
+    }
+
+    const locationUpdated = {
+        ...location,
+        file
+    }
+    await knex('location').update(locationUpdated);
+
+    return response.json(locationUpdated);
 });
 
 export default locationsRouter;
