@@ -27,7 +27,9 @@ locationsRouter.get('/', async (request, response) => {
     // nao quero que repita os valores trazidos.
     .distinct()
     // quero que traga todos os campos
-    .select('locations.*')
+    .select('locations.*');
+
+    return response.json(locations);
 });
 
 locationsRouter.post('/', async (request, response) => {
