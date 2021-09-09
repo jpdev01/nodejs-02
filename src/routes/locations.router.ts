@@ -3,6 +3,33 @@ import knex from '../database/connection';
 
 const locationsRouter = Router();
 
+locationsRouter.get('/', async (request, response) => {
+    const { city, uf, items} = request.query;
+
+    /* 
+    * O usuario vai informar os items por uma string com virugula, separará os items
+    */
+    const parsedItems = <any> String(items).split(',').map(item => {
+        Number(item.trim());
+    });
+
+    const locations = knex('locations')
+    /* 
+    * 1- em que tabela?
+    * 2- qual coluna da tabela princiapl?
+    * 3- operador
+    * 4- qual coluna da tabela do join?
+    */
+    .join('location_items', 'locations.id', '=', 'location_items.location_id')
+    .whereIn('location_items.item_id', parsedItems)
+    .where('city', String(city))
+    .where('uf', String(uf))
+    // nao quero que repita os valores trazidos.
+    .distinct()
+    // quero que traga todos os campos
+    .select('locations.*')
+});
+
 locationsRouter.post('/', async (request, response) => {
     const { 
         name, 
