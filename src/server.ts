@@ -3,6 +3,7 @@ import express from 'express';
 import routes from './routes';
 import path from 'path';
 import cors from 'cors';
+import { errors } from 'celebrate';
 
 const app = express();
 
@@ -30,6 +31,9 @@ express.static(
     path.resolve(__dirname, '..', 'uploads')
     )
 );
+
+//na validação de requisição, exibe o erro ao usuario caso algum campo nao esteja correto.
+app.use(errors());
 const port = 8081;
 app.listen(port, () => {
     console.log(`server started on port ${port}`);

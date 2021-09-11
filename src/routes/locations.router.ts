@@ -61,7 +61,10 @@ locationsRouter.post('/', celebrate({
             items: Joi.string().required()
         })
     }
-}), async (request, response) => {
+},
+ {
+     abortEarly: false // se encontrar erro, nao aborta. Percorre todas as validacoes, e dai aborta
+ }), async (request, response) => {
     const {
         name,
         email,
