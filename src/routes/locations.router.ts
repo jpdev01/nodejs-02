@@ -4,6 +4,7 @@ import multer from 'multer';
 import multerConfig from '../config/multer';
 import { celebrate, Joi } from 'celebrate';
 
+
 const locationsRouter = Router();
 const upload = multer(multerConfig);
 
